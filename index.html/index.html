@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Srikanth — AI/ML Engineer Portfolio</title>
+  <meta name="description" content="A minimal, responsive HTML+CSS portfolio for a Generative AI & Data Engineering professional." />
+  <style>
+    /* ====== Design Tokens ====== */
+    :root{
+      --bg: #0b1020;            /* canvas */
+      --bg-soft:#11172f;        /* surfaces */
+      --text:#e7ecff;           /* primary text */
+      --muted:#a7b0d6;          /* secondary text */
+      --brand:#6c9eff;          /* accent */
+      --brand-2:#7dffd1;        /* accent 2 */
+      --card:#0d1328;           /* card */
+      --ring: rgba(124, 164, 255, .35);
+      --radius: 16px;
+      --shadow: 0 8px 28px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.25);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f6f8ff; --bg-soft:#ffffff; --text:#111321; --muted:#4b5567; --card:#ffffff; }
+    }
+
+    /* ====== Base ====== */
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0; font-family:var(--font); color:var(--text); background: radial-gradient(1200px 800px at 20% -10%, rgba(108,158,255,.18), transparent 60%),
+      radial-gradient(900px 600px at 110% 10%, rgba(125,255,209,.12), transparent 60%), var(--bg);
+      line-height:1.6; letter-spacing:.2px;
+    }
+
+    .container{ width:min(1100px, 92%); margin-inline:auto; }
+    .pill{ display:inline-flex; align-items:center; gap:.5rem; padding:.4rem .8rem; border-radius:999px; font-size:.9rem; background:linear-gradient( to right, rgba(108,158,255,.16), rgba(125,255,209,.16)); border:1px solid rgba(255,255,255,.12); }
+    .tag{ display:inline-block; padding:.25rem .6rem; border-radius:999px; font-size:.75rem; background:rgba(124,164,255,.15); border:1px solid rgba(124,164,255,.35); color:#dbe5ff; margin:.15rem; }
+    .muted{ color:var(--muted); }
+    .btn{ display:inline-block; padding:.8rem 1.1rem; border-radius:12px; background:linear-gradient(135deg, var(--brand) 0%, #3f78ff 100%); color:white; text-decoration:none; font-weight:600; box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.15); transition: transform .2s ease, filter .2s ease; }
+    .btn:hover{ transform: translateY(-2px); filter:brightness(1.05); }
+
+    header{ position:sticky; top:0; z-index:20; backdrop-filter: saturate(150%) blur(8px); background:linear-gradient(to bottom, rgba(14,19,40,.8), rgba(14,19,40,.35)); border-bottom:1px solid rgba(255,255,255,.06); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:1rem 0; }
+    .nav a{ color:var(--muted); text-decoration:none; margin-left:1rem; font-weight:600; }
+    .nav a:hover{ color:var(--text); }
+
+    /* ====== Hero ====== */
+    .hero{ display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem; align-items:center; padding:4rem 0 3rem; }
+    .hero .card{ background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow); }
+    .title{ font-size:clamp(1.8rem, 2.5vw + 1rem, 3rem); line-height:1.1; margin:.7rem 0 1rem; }
+    .sub{ font-size:1.05rem; }
+
+    .showcase{ border-radius:var(--radius); height:320px; background:
+      radial-gradient(300px 180px at 20% 25%, rgba(108,158,255,.25), transparent 60%),
+      radial-gradient(220px 160px at 80% 30%, rgba(125,255,209,.18), transparent 60%),
+      linear-gradient(180deg, var(--bg-soft), var(--card));
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); position:relative; overflow:hidden; }
+    .showcase .code{
+      position:absolute; inset:18px; border-radius:14px; background: #0b0f22; border:1px solid rgba(124,164,255,.2); color:#e5ecff; font-family:var(--mono); font-size:.9rem; padding:18px 20px; white-space:pre-wrap; overflow:auto; box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+    }
+
+    /* ====== Sections ====== */
+    section{ padding:3rem 0; }
+    h2{ font-size:1.5rem; margin:0 0 1rem; }
+
+    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:1.2rem; }
+    .card{ background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:1.3rem; box-shadow:var(--shadow); }
+    .card h3{ margin:.2rem 0 .4rem; font-size:1.05rem; }
+    .card p{ margin-top:.2rem; }
+
+    .skills{ display:flex; flex-wrap:wrap; gap:.35rem .5rem; }
+
+    .footer{ padding:2.2rem 0 3rem; color:var(--muted); text-align:center; font-size:.95rem; }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 900px){ .hero{ grid-template-columns: 1fr; } }
+    @media (max-width: 780px){ .grid{ grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="pill" aria-label="identity">
+        <strong>SR</strong>
+        <span class="muted">Generative AI & ML Engineer</span>
+      </div>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-labelledby="intro">
+      <div class="card">
+        <span class="pill">Available for Freelance & Full‑time</span>
+        <h1 id="intro" class="title">I design & deploy **production‑ready** Generative AI and data platforms.</h1>
+        <p class="sub muted">From RAG assistants to fraud detection and MLOps, I turn ideas into reliable, scalable products across AWS, Snowflake, and Databricks.</p>
+        <div style="margin-top:1.2rem; display:flex; gap:.8rem; flex-wrap:wrap">
+          <a class="btn" href="#projects">Explore Projects</a>
+          <a class="btn" style="background:linear-gradient(135deg,var(--brand-2),#3df1b3)" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <div class="showcase" aria-hidden="true">
+        <div class="code"># Airflow: daily sales → Snowflake star schema
+from airflow import DAG
+from datetime import datetime
+
+def pipeline():
+    return "stg_sales → dim_customer → fact_sales"
+
+dag = DAG(
+    dag_id="daily_sales_star",
+    start_date=datetime(2025, 9, 1),
+    schedule="0 2 * * *",
+)
+# …generated by Copilot → deploy via CI/CD</div>
+      </div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section id="projects">
+      <h2>Featured Projects</h2>
+      <div class="grid" role="list">
+        <article class="card" role="listitem">
+          <div class="tag">RAG</div>
+          <div class="tag">Bedrock</div>
+          <h3>Enterprise Q&A Assistant</h3>
+          <p class="muted">Retrieval‑Augmented Generation with guardrails and vector search; privacy‑first design for internal knowledgebases.</p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="tag">SageMaker</div>
+          <div class="tag">PyTorch</div>
+          <h3>Real‑time Fraud Detection</h3>
+          <p class="muted">Streaming features on Kafka + model serving; reduced false positives by ~30% with explainable predictions.</p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="tag">DBT</div>
+          <div class="tag">Airflow</div>
+          <h3>MLOps & Analytics Pipeline</h3>
+          <p class="muted">Reusable dbt models, tests, and lineage; cost‑aware Snowflake design with clustering + materialized views.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Skills ===== -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="card">
+        <div class="skills">
+          <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">PyTorch</span><span class="tag">TensorFlow</span>
+          <span class="tag">AWS Bedrock</span><span class="tag">LangChain</span><span class="tag">Snowflake</span><span class="tag">Databricks</span>
+          <span class="tag">Kafka</span><span class="tag">Airflow</span><span class="tag">DBT</span><span class="tag">SageMaker</span>
+          <span class="tag">Terraform</span><span class="tag">Docker</span><span class="tag">Kubernetes</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p class="muted">Open to collaborations, consulting, and full‑time roles. Let’s build something impactful.</p>
+        <p><strong>Email:</strong> <a class="muted" href="mailto:srikanthreddy.marthula@gmail.com">srikanthreddy.marthula@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a class="muted" href="#">linkedin.com/in/srikanthmarthula</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © <span id="y">2025</span> Srikanth Reddy Marthula • Built with vanilla HTML + CSS
+  </footer>
+</body>
+</html>
